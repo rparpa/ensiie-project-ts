@@ -1,0 +1,46 @@
+version: '3'
+services:
+  postgres:
+    build:
+      context: docker/postgres
+    ports:
+      - ${DB_PORT_EXTERNAL}:5432
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - "ensiie"
+
+  node:
+    build:
+      context: docker/node/
+      args:
+        DOCKER_USER: ${DOCKER_USER}
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
+    ports:
+      - ${NODE_PORT}:80
+    restart: "no"
+    environment:
+      TZ: ${TIMEZONE}
+      SSH_AUTH_SOCK: /ssh-agent
+      DB_NAME: ${DB_USER}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - .:/var/www
+      - $SSH_AUTH_SOCK:/ssh-agent
+    working_dir: /var/www
+    user: "${DOCKER_USER}"
+    command:
+      - "npx"
+      - "ts-node-dev"
+      - "src/index.ts"
+    networks:
+      - "ensiie"
+
+networks:
+    ensiie:
+        driver: bridge
