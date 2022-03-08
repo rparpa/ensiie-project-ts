@@ -9,11 +9,11 @@ The only packages you need to install right now are **docker** and **docker-comp
 3. [Install Docker Compose](https://docs.docker.com/compose/install/)
 
 Then, clone the Web Project skeleton on your machine:
-* `git clone https://github.com/rparpa/ensiie-project.git`
+* `git clone https://github.com/rparpa/ensiie-project-ts.git`
 * `cd ensiie-project`
 
 The next step is to set some environment variables in the `.env` file
-* Open this Skeleton on your favorite IDE : PHPStorm or VSCode.
+* Open this Skeleton on your favorite IDE : Webstorm or VSCode.
 * Create an .env file `cp env.dist .env` & edit it with your own values:
   * DOCKER_USER_ID: to obtain the value of this variable you need to execute this command `$(echo id -u $USER)` on a Terminal. Copy and past the output.
   * DOCKER_USER: your current user which you can get with `whoami`.
